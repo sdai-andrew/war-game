@@ -12,7 +12,31 @@
 		<div id="header-div">
             This is War
         </div>
-        <div id="game">
+        <div id="game-div">
+            <form method="POST" action="{% url 'game' %}">
+                <table class="form-table">
+                    {% for field in form.visible_fields %}
+                        <tr>
+                            <td class="form-table-label-td">{{field.label}}</td>
+                            <td>{{field}}</td>
+                        </tr>
+                        <tr>
+                            <td class="field-errorlist">
+                                {% for error in field.errors %} {{error}} {% endfor %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                {% csrf_token %}
+                <div class="submit-button-div">
+                    <button type="submit" class="submit-button">Start game</button>
+                </div>
+            </form>
+        </div>
+        <div id="check-wins-div">
+            <label for="check-wins-input">Player Name:</label>
+            <input type="text" name="post_content" id="check-wins-input">
+            <button class="submit-button" onclick="checkWins()">Check wins</button>
         </div>
 	</body>
 </html>
