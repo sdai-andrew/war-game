@@ -1,3 +1,6 @@
 from django.db import models
 
-# Create your models here.
+class Player(models.model):
+    name = models.CharField(max_length=25)
+    wins = models.PositiveIntegerField()
+
