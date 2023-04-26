@@ -3,6 +3,7 @@ from django.test import TestCase
 from wargame.models import Player
 from wargame.game import *
 
+
 class PlayerTestCase(TestCase):
     def setUp(self):
         Player.objects.create(name="Player A")
