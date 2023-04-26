@@ -9,26 +9,23 @@ HEARTS = "Hearts"
 DIAMONDS = "Diamonds"
 SPADES = "Spades"
 CLOVERS = "Clovers"
-RED = "Red"
-BLACK = "Black"
 VALUES = [i for i in range(1, ACE + 1)]
 SUITS = [HEARTS, DIAMONDS, SPADES, CLOVERS]
-COLORS = [RED, BLACK]
 
 class Game():
     @staticmethod
     def generateDeck():
         deck = []
-        for color in COLORS:
-            for suit in SUITS:
-                for value in VALUES:
-                    deck.append(Card(suit, color, value))
+        for suit in SUITS:
+            for value in VALUES:
+                deck.append(Card(suit, value))
         return deck
 
     def __init__(self):
-        deck = random.shuffle(Game.generateDeck())
-        self.player1 = Player(deque(deck[:len(deck) // 2]))
-        self.player2 = Player(deque(deck[len(deck) // 2 :]))
+        deck = Game.generateDeck()
+        random.shuffle(deck)
+        self.player1 = Player(deque(deck[:(len(deck) // 2)]))
+        self.player2 = Player(deque(deck[(len(deck) // 2):]))
         self.moves = []
     
     def serializeMove(self, status, p1Card, p2Card, p1FaceUp, p2FaceUp):
@@ -42,7 +39,6 @@ class Game():
         elif p1FaceUp:
             oneCard["isFaceUp"] = "True"
             oneCard["Suit"] = p1Card.suit
-            oneCard["Color"] = p1Card.color
             oneCard["Value"] = p1Card.value
         else: 
             oneCard["isFaceUp"] = "False"
@@ -53,7 +49,6 @@ class Game():
         elif p2FaceUp:
             twoCard["isFaceUp"] = "True"
             twoCard["Suit"] = p2Card.suit
-            twoCard["Color"] = p2Card.color
             twoCard["Value"] = p2Card.value
         else: 
             twoCard["isFaceUp"] = "False"
@@ -110,17 +105,16 @@ class Game():
         return self.moves            
 
 class Card():
-    def __init__(self, suit, color, value):
+    def __init__(self, suit, value):
         self.suit = suit
-        self.color = color
         self.value = value
     
     def __eq__(self, other):
         return (isinstance(other, self.__class__) and other.suit == self.suit and
-                other.color == self.color and other.value == self.value)
+                other.value == self.value)
 
     def __hash__(self):
-        return hash(self.suit + self.color + str(self.value))
+        return hash(self.suit + str(self.value))
 
 class Player():
     def __init__(self, deck):
