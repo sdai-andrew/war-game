@@ -7,12 +7,12 @@ KING = 12
 ACE = 13
 HEARTS = "Hearts"
 DIAMONDS = "Diamonds"
-CLUBS = "Clubs"
+SPADES = "Spades"
 CLOVERS = "Clovers"
 RED = "Red"
 BLACK = "Black"
 VALUES = [i for i in range(1, ACE + 1)]
-SUITS = [HEARTS, DIAMONDS, CLUBS, CLOVERS]
+SUITS = [HEARTS, DIAMONDS, SPADES, CLOVERS]
 COLORS = [RED, BLACK]
 
 class Game():
@@ -40,23 +40,23 @@ class Game():
         if p1FaceUp == None:
             oneCard["isFaceUp"] = "None"
         elif p1FaceUp:
-            oneCard["isFaceUp"] = "true"
+            oneCard["isFaceUp"] = "True"
             oneCard["Suit"] = p1Card.suit
             oneCard["Color"] = p1Card.color
             oneCard["Value"] = p1Card.value
         else: 
-            oneCard["isFaceUp"] = "false"
+            oneCard["isFaceUp"] = "False"
         result["p1Card"] = oneCard
         twoCard = {}
         if p2FaceUp == None:
             twoCard["isFaceUp"] = "None"
         elif p2FaceUp:
-            twoCard["isFaceUp"] = "true"
+            twoCard["isFaceUp"] = "True"
             twoCard["Suit"] = p2Card.suit
             twoCard["Color"] = p2Card.color
             twoCard["Value"] = p2Card.value
         else: 
-            twoCard["isFaceUp"] = "false"
+            twoCard["isFaceUp"] = "False"
         result["p2Card"] = twoCard
         self.moves.append(result)
 
