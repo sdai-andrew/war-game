@@ -24,8 +24,8 @@ class Game():
     def __init__(self):
         deck = Game.generateDeck()
         random.shuffle(deck)
-        self.player1 = Player(deque(deck[:(len(deck) // 2)]))
-        self.player2 = Player(deque(deck[(len(deck) // 2):]))
+        self.player1 = GamePlayer(deque(deck[:(len(deck) // 2)]))
+        self.player2 = GamePlayer(deque(deck[(len(deck) // 2):]))
         self.moves = []
     
     def serializeMove(self, status, p1Card, p2Card, p1FaceUp, p2FaceUp):
@@ -116,7 +116,7 @@ class Card():
     def __hash__(self):
         return hash(self.suit + str(self.value))
 
-class Player():
+class GamePlayer():
     def __init__(self, deck):
         self.deck = deck
     

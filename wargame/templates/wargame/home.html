@@ -13,7 +13,7 @@
             This is War
         </div>
         <div id="game-div">
-            <form method="POST" action="{% url 'game' %}">
+            <form method="POST" action="{% url 'go_game' %}">
                 <table class="form-table">
                     {% for field in form.visible_fields %}
                         <tr>
