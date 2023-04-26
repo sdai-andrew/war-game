@@ -4,13 +4,14 @@ from django.urls import reverse
 from django.shortcuts import render, redirect
 from wargame.models import Player
 from django.core.exceptions import MultipleObjectsReturned, ObjectDoesNotExist
+from wargame.game import *
 
 def home_action(request):
     context = {}
     context["form"] = StartGameForm()
     return render(request, 'wargame/home.html', context)
 
-def start_game(request):
+def go_game(request):
     if request.method != "POST":
         return redirect(reverse('home'))
     form = StartGameForm(request.POST)
@@ -36,8 +37,4 @@ def start_game(request):
     except ObjectDoesNotExist:
         player2 = Player(name=p1Name)
         player2.save()
-    run_game(player1, player2)
-    # return some render here
-
-def run_game(player1, player2):
-    
+    return render(request, 'wargame/game.html')
