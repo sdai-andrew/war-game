@@ -1,3 +1,5 @@
+import json
+from django.http import HttpResponse
 from django.shortcuts import render
 from wargame.forms import StartGameForm
 from django.urls import reverse
@@ -38,3 +40,19 @@ def go_game(request):
         player2 = Player(name=p1Name)
         player2.save()
     return render(request, 'wargame/game.html')
+
+def get_wins_json(request, name):
+    try:
+        player = Player.objects.get(name=name)
+    except MultipleObjectsReturned:
+        print("Multiple player 1's detected for name " + name)
+        player = Player.objects.filter(name=name).first()
+    except ObjectDoesNotExist:
+        player = Player(name=name)
+        player.save()
+    response_data = {
+        "player_name": name,
+        "wins": player.wins,
+    }
+    response_json = json.dumps(response_data)
+    return HttpResponse(response_json, content_type='application/json')
