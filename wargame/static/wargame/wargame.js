@@ -96,3 +96,7 @@ function displayGamePage(xhr) {
     }
     displayError(response);
 }
+
+function displayGame(response) {
+    return;
+}

@@ -1,15 +1,15 @@
 import random
 from collections import deque
 
-JACK = 10
-QUEEN = 11
-KING = 12
-ACE = 13
+JACK = 11
+QUEEN = 12
+KING = 13
+ACE = 14
 HEARTS = "Hearts"
 DIAMONDS = "Diamonds"
 SPADES = "Spades"
 CLOVERS = "Clovers"
-VALUES = [i for i in range(1, ACE + 1)]
+VALUES = [i for i in range(2, ACE + 1)]
 SUITS = [HEARTS, DIAMONDS, SPADES, CLOVERS]
 
 class Game():
@@ -56,9 +56,12 @@ class Game():
         self.moves.append(result)
 
 
-    def play(self):
-        # add move to indicate start of game
-        self.serializeMove("Starting Game", None, None, None, None)
+    def play(self, restarted):
+        if restarted:
+            self.serializeMove("Tied and ran out of cards! Reshuffling", None, None, None, None)
+        else:
+            # add move to indicate start of game
+            self.serializeMove("Starting Game", None, None, None, None)
         war = []
         while self.player1.deck and self.player2.deck:
             player1Card = self.player1.deck.popleft()
@@ -72,19 +75,27 @@ class Game():
                 self.serializeMove("Player 2 victory", player1Card, player2Card, True, True)
             else:
                 self.serializeMove("Tie, time for war!", player1Card, player2Card, True, True)
+                p1InitialCount = len(self.player1.deck)
                 isWar = True
                 while isWar:
+                    # the case where they tie and are both out of cards so we have to redistribute
+                    if len(self.player1.deck) == 0 and len(self.player2.deck) == 0:
+                        deck = Game.generateDeck()
+                        random.shuffle(deck)
+                        self.player1.deck = deque(deck[: p1InitialCount + 1])
+                        self.player2.deck = deque(deck[p1InitialCount + 1:])
+                        return self.play(True)
                     # add face down cards
                     self.serializeMove("Tie, time for war!", None, None,
                                        None if len(self.player1.deck) == 0 else False,
-                                       None if len(self.player1.deck) == 0 else False)
+                                       None if len(self.player2.deck) == 0 else False)
                     if self.player1.deck:
-                        war.append(self.player2.deck.popleft())
+                        war.append(self.player1.deck.popleft())
                     if self.player2.deck:
                         war.append(self.player2.deck.popleft())
                     # add face up cards
                     if self.player1.deck:
-                        player1Card = self.player2.deck.popleft()
+                        player1Card = self.player1.deck.popleft()
                     if self.player2.deck:
                         player2Card = self.player2.deck.popleft()
                     war.extend([player1Card, player2Card])
@@ -100,6 +111,7 @@ class Game():
                     else:
                         status = "Tie again, time for war!"
                     self.serializeMove(status, player1Card, player2Card, True, True)
+            war = []
         status = "Player 1 won!" if len(self.player2.deck) == 0 else "Player 2 won!"
         self.serializeMove(status, None, None, None, None)
         return self.moves            
@@ -115,6 +127,9 @@ class Card():
 
     def __hash__(self):
         return hash(self.suit + str(self.value))
+    
+    def __str__(self):
+        return "Card: " + str(self.value) + " of " + self.suit
 
 class GamePlayer():
     def __init__(self, deck):

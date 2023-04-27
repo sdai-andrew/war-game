@@ -12,13 +12,35 @@ from django.core.exceptions import MultipleObjectsReturned, ObjectDoesNotExist
 from django.db import transaction
 from wargame.game import *
 
+@transaction.atomic
 def play_game(request, p1name, p2name):
     if not request.user.is_authenticated:
         return _my_json_error_response("You must be logged in to do this operation", status=401)
     if request.method != 'POST':
         return _my_json_error_response("You must use a POST request for this operation", status=405)
-    
-    return _my_json_error_response("Invalid.", status=400)
+    try:
+        player1User = User.objects.get(username=p1name)
+        player1 = player1User.player
+        player2User = User.objects.get(username=p2name)
+        player2 = player2User.player
+    except ObjectDoesNotExist:
+        return _my_json_error_response("Invalid.", status=400)
+    game = Game()
+    moves = game.play(False)
+    lastMove = moves[-1]
+    lastStatus = lastMove["Status"]
+    if lastStatus == "Player 1 won!":
+        player1.wins += 1
+        player1.save()
+    elif lastStatus == "Player 2 won!":
+        player2.wins += 1
+        player2.save()
+    else:
+        print("FREAKING ERROR")
+    print(moves)
+    response_json = json.dumps({"moves": moves})
+    return HttpResponse(response_json, content_type='application/json')
+
 
 @login_required
 def home_action(request):
@@ -41,7 +63,7 @@ def go_game(request):
         player = Player(user=request.user)
         player.save()
     form = StartGameForm(request.POST)
-    if not form.is_valid:
+    if not form.is_valid():
         context = {}
         context["form"] = form
         return render(request, 'wargame/home.html', context)
@@ -75,7 +97,6 @@ def get_wins_json(request, name):
     if response_data["player_exists"] == "true":
         response_data["wins"] = player.wins
     response_json = json.dumps(response_data)
-    print(response_json)
     return HttpResponse(response_json, content_type='application/json')
 
 def _my_json_error_response(message, status=200):
