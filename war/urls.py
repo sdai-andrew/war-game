@@ -8,4 +8,5 @@ urlpatterns = [
     path('login', views.login_action, name='login'),
     path('logout', views.logout_action, name='logout'),
     path('register', views.register_action, name='register'),
+    path('play-game/<str:p1name>/<str:p2name>', views.play_game),
 ]

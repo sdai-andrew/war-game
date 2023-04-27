@@ -9,7 +9,16 @@ from django.urls import reverse
 from django.shortcuts import render, redirect
 from wargame.models import Player
 from django.core.exceptions import MultipleObjectsReturned, ObjectDoesNotExist
+from django.db import transaction
 from wargame.game import *
+
+def play_game(request, p1name, p2name):
+    if not request.user.is_authenticated:
+        return _my_json_error_response("You must be logged in to do this operation", status=401)
+    if request.method != 'POST':
+        return _my_json_error_response("You must use a POST request for this operation", status=405)
+    
+    return _my_json_error_response("Invalid.", status=400)
 
 @login_required
 def home_action(request):
@@ -40,11 +49,6 @@ def go_game(request):
     try:
         oppUser = User.objects.get(username=opponentName)
         opponent = oppUser.player
-    except MultipleObjectsReturned:
-        # for debugging sake, should never happen
-        print("Multiple player 1's detected for name " + opponentName)
-        oppUser = User.objects.filter(username=opponentName).first()
-        opponent = oppUser.player
     except ObjectDoesNotExist:
         context= {}
         form.add_error('opponentName', 'User with that name does not exist')
@@ -64,11 +68,6 @@ def get_wins_json(request, name):
     }
     try:
         playerUser = User.objects.get(username=name)
-        player = playerUser.player
-    except MultipleObjectsReturned:
-        # for debugging sake, should never happen
-        print("Multiple player 1's detected for name " + name)
-        playerUser = User.objects.filter(username=name).first()
         player = playerUser.player
     except ObjectDoesNotExist:
         response_data["player_exists"] = "false"
@@ -101,6 +100,7 @@ def logout_action(request):
     logout(request)
     return redirect(reverse('login'))
 
+@transaction.atomic
 def register_action(request):
     context = {}
     if request.method == 'GET':

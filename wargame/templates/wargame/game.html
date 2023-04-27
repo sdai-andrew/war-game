@@ -13,6 +13,8 @@
         </div>
     </div>
     <script>
-        window.onload=getGame()
+        let p1Name = "{{ player1 }}"
+        let p2Name = "{{ player2 }}"
+        window.onload=getGame(p1Name, p2Name)
     </script>
 {% endblock %}
