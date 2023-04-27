@@ -1,13 +1,5 @@
-import unittest
 from django.test import TestCase
-from wargame.models import Player
 from wargame.game import *
-
-
-class PlayerTestCase(TestCase):
-    def setUp(self):
-        Player.objects.create(name="Player A")
-        Player.objects.create(name="Player B")
     
 class GameTest(TestCase):
     def test_deck_creation(self):
