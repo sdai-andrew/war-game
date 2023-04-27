@@ -73,7 +73,8 @@ def get_wins_json(request, name):
     except ObjectDoesNotExist:
         response_data["exists"] = "false"
     response_data["player_name"] = name
-    response_data["wins"] = player.wins
+    if response_data["exists"] == "true":
+        response_data["wins"] = player.wins
     response_json = json.dumps(response_data)
     return HttpResponse(response_json, content_type='application/json')
 

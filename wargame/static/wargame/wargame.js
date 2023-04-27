@@ -45,5 +45,9 @@ function updateWins(response) {
         displayError("Can't find wins-div");
         return;
     }
-    div.innerHTML = `Player ${response.player_name} has ${response.wins} wins`
+    if (response.exists.equals("true")) {
+        div.innerHTML = `Player ${response.player_name} has ${response.wins} wins`;
+    } else {
+        div.innerHTML = `Player named ${response.player_name} does not exist!`;
+    }   
 }
