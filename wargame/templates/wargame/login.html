@@ -1,5 +1,30 @@
 {% extends "wargame/base.html" %}
 
 {% block body %}
-
+    <div id="header-div">
+        Login
+    </div>
+    <form method="post" action="{% url 'login' %}">
+        <table class="form-table">
+            {% for field in form.visible_fields %}
+                <tr>
+                    <td>{{field}}</td>
+                </tr>
+                <tr>
+                    <td class="field-errorlist">
+                        {% for error in field.errors %} {{error}} {% endfor %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        {% csrf_token %}
+        <div class="submit-button-div">
+            <button type="submit" class="submit-button">Login</button>
+        </div>
+    </form>
+    {% for error in form.non_field_errors %}
+        <p class="nonfield-errorlist">
+            {{ error }}
+        </p>
+    {% endfor %}
 {% endblock %}

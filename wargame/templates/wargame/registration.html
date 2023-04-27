@@ -1,5 +1,26 @@
 {% extends "wargame/base.html" %}
 
 {% block body %}
-
+    <div id="header-div">
+        Register
+    </div>
+    <form method="post" action="{% url 'register' %}">
+        <table class="table_form">
+            {% for field in form.visible_fields %}
+                <tr>
+                    <td>{{field}}</td>
+                    <td class="field-errorlist">
+                        {% for error in field.errors %} {{error}} {% endfor %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        {% csrf_token %}
+        <button id="id_register_button" type="submit">Register</button>
+    </form>
+    {% for error in form.non_field_errors %}
+        <p class="nonfield-errorlist">
+            {{error}}
+        </p>
+    {% endfor %}
 {% endblock %}
