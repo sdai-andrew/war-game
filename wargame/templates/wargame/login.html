@@ -4,6 +4,9 @@
     <div id="header-div">
         Login
     </div>
+    <div id="link-div">
+        <a href="{% url 'register' %}">New User? Register</a>
+    </div>
     <form method="post" action="{% url 'login' %}">
         <table class="form-table">
             {% for field in form.visible_fields %}

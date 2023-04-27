@@ -4,6 +4,9 @@
     <div id="header-div">
         This is War
     </div>
+    <div id="link-div">
+        <a href="{% url 'logout' %}">Logout</a>
+    </div>
     <div id="game-div">
         <form method="POST" action="{% url 'go_game' %}">
             <table class="form-table">
