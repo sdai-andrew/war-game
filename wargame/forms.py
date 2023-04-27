@@ -16,7 +16,7 @@ class LoginForm(forms.Form):
         password = cleaned_data.get('password')
         user = authenticate(username=username, password=password)
         if not user:
-            raise forms.ValidationError("Invalid username/password").
+            raise forms.ValidationError("Invalid username/password")
         return cleaned_data
     
 class RegisterForm(forms.Form):
