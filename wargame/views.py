@@ -1,8 +1,9 @@
 import json
 from django.http import HttpResponse
 from django.shortcuts import render
-from wargame.forms import StartGameForm
+from wargame.forms import StartGameForm, LoginForm, RegisterForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.shortcuts import render, redirect
@@ -79,3 +80,41 @@ def get_wins_json(request, name):
 def _my_json_error_response(message, status=200):
     response_json = '{"error": "' + message + '"}'
     return HttpResponse(response_json, content_type='application/json', status=status)
+
+def login_action(request):
+    context = {}
+    if request.method == 'GET':
+        context['form'] = LoginForm()
+        return render(request, 'wargame/login.html', context)
+    form = LoginForm(request.POST)
+    context['form'] = form
+    if not form.is_valid():
+        return render(request, 'wargame/login.html', context)
+    user = authenticate(username=form.cleaned_data['username'],
+                        password=form.cleaned_data['password'])
+    login(request, user)
+    return redirect(reverse('home'))
+
+def logout_action(request):
+    logout(request)
+    return redirect(reverse('login'))
+
+def register_action(request):
+    context = {}
+    if request.method == 'GET':
+        context['form'] = RegisterForm()
+        return render(request, 'wargame/registration.html', context)
+    form = RegisterForm(request.POST)
+    context['form'] = form
+    if not form.is_valid():
+        return render(request, 'wargame/registration.html', context)
+    user = User.objects.create_user(username=form.cleaned_data['username'], 
+                                    password=form.cleaned_data['password'])
+    user.save()
+    user = authenticate(username=form.cleaned_data['username'],
+                        password=form.cleaned_data['password'])
+    player = Player(user=user)
+    player.save()
+
+    login(request, user)
+    return redirect(reverse('home'))
