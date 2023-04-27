@@ -1,18 +1,17 @@
 {% extends "wargame/base.html" %}
 
 {% block body %}
+    <div id="logout-link-div">
+        <a href="{% url 'logout' %}">Logout</a>
+    </div>    
     <div id="header-div">
         This is War
-    </div>
-    <div id="link-div">
-        <a href="{% url 'logout' %}">Logout</a>
     </div>
     <div id="game-div">
         <form method="POST" action="{% url 'go_game' %}">
             <table class="form-table">
                 {% for field in form.visible_fields %}
                     <tr>
-                        <td class="form-table-label-td">{{field.label}}</td>
                         <td>{{field}}</td>
                     </tr>
                     <tr>
@@ -24,13 +23,12 @@
             </table>
             {% csrf_token %}
             <div class="submit-button-div">
-                <button type="submit" class="submit-button">Start game</button>
+                <button type="submit" id="start-button" class="submit-button">Start game</button>
             </div>
         </form>
     </div>
     <div id="check-wins-div">
-        <label for="check-wins-input">Player Name:</label>
-        <input type="text" name="post_content" id="check-wins-input">
+        <input type="text" name="post_content" id="check-wins-input" placeholder="Player Username">
         <button class="submit-button" onclick="checkWins()">Check wins</button>
         <div id="wins-div"></div>
     </div>

@@ -98,53 +98,46 @@ function displayGamePage(xhr) {
 }
 
 function displayGame(moves) {
-    const intervalID = setInterval(displayMove, 1000);
+    const intervalID = setInterval(displayMove, 1500);
     let index = 0;
     function displayMove() {
         if (index >= moves.length) {
             clearInterval(intervalID);
             return;
         }
-        let move = moves[i];
-        let headerDiv = document.getElementById("header-div");
+        let move = moves[index];
+        let statusDiv = document.getElementById("status-div");
         let p2DeckDiv = document.getElementById("player-2-deck-div");
         let p2PlayDiv = document.getElementById("player-2-play-div");
         let p1DeckDiv = document.getElementById("player-1-deck-div");
         let p1PlayDiv = document.getElementById("player-1-play-div");
-        headerDiv.innerHTML = move.status;
-        if (move.p1numcards >= 1) {
-            p1DeckDiv.style.backgroundColor = "Gray";
-            p1DeckDiv.innerHTML = move.p1numcards;
-        } else if (move.p1numcards === 0) {
-            // make deck transparent to mimic empty deck
-            p1DeckDiv.style.backgroundColor = "rgba(255, 255, 255, 0)";
-            p1DeckDiv.style.borderColor = "rgba(255, 255, 255, 0)";
-            p1DeckDiv.innerHTML = ``;
+        statusDiv.innerHTML = move.status;
+        if (move.p1NumCards >= 1) {
+            p1DeckDiv.innerHTML = `${move.p1NumCards} cards left`;
+        } else if (move.p1numcards == 0) {
+            p1DeckDiv.innerHTML = `Out of cards!`;
         }
-        if (move.p1numcards >= 1) {
-            p2DeckDiv.style.backgroundColor = "Gray";
-            p2DeckDiv.innerHTML = move.p2numcards;
-        } else if (move.p1numcards === 0) {
-            // make deck transparent to mimic empty deck
-            p2DeckDiv.style.backgroundColor = "rgba(255, 255, 255, 0)";
-            p2DeckDiv.style.borderColor = "rgba(255, 255, 255, 0)";
-            p2DeckDiv.innerHTML = ``;
+        if (move.p2NumCards >= 1) {
+            p2DeckDiv.innerHTML = `${move.p2NumCards} cards left`;
+        } else if (move.p2NumCards === 0) {
+            p2DeckDiv.innerHTML = `Out of cards!`;
         }
-        let oneCard = move.p1card;
-        let twoCard = move.p2card;
-        if (oneCard.isfaceup === "True") {
+        let oneCard = move.p1Card;
+        let twoCard = move.p2Card;
+        if (oneCard.isFaceUp === "True") {
             p1PlayDiv.innerHTML = `${oneCard.value} of ${oneCard.suit}`;
             p1PlayDiv.style.backgroundColor = "White";
-        } else if (oneCard.isfaceup === "False") {
-            p1PlayDiv.innerHTML = ``;
+        } else if (oneCard.isFaceUp === "False") {
+            p1PlayDiv.innerHTML = `Face down`;
             p1PlayDiv.style.backgroundColor = "Gray";
         }
-        if (twoCard.isfaceup === "True") {
+        if (twoCard.isFaceUp === "True") {
             p2PlayDiv.innerHTML = `${twoCard.value} of ${twoCard.suit}`;
             p2PlayDiv.style.backgroundColor = "White";
-        } else if (oneCard.isfaceup === "False") {
-            p2PlayDiv.innerHTML = ``;
+        } else if (oneCard.isFaceUp === "False") {
+            p2PlayDiv.innerHTML = `Face down`;
             p2PlayDiv.style.backgroundColor = "Gray";
         }
+        index += 1;
     }
 }

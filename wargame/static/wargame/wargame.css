@@ -1,0 +1,115 @@
+body {
+    background-color: #7DD181;
+}
+
+#header-div {
+    text-align: center;
+    margin-top: 15vh;
+    font-size: 5vh;
+}
+
+#login-link-div {
+    text-align: center;
+    padding: 4vh 0 2vh 0;
+}
+
+#logout-link-div {
+    text-align: right;
+    padding: 2vh 4vh;
+}
+
+a {
+    color: #083e70;
+    font-size: 3vh;
+}
+
+.form-table {
+    margin: 2vh auto;
+}
+
+input {
+    padding: 0.75em;
+    margin: 0 0 3px 0;
+    border: 0.5vh solid #C3C3C3;
+    border-radius: 10px;
+    width: 20vh;
+    font-size: large;
+    background-color: #fff7f7;
+    font-family: sans-serif;
+}
+
+input:focus {
+    outline: none;
+    background-color: white;
+    border: 4px solid #aad6ff;
+}
+
+.submit-button-div {
+    text-align: center;
+}
+
+button {
+    background-color: #19c067;
+    border: 0.5vh solid #C3C3C3;
+    color: black;
+    padding: 2vh;
+    width: 10vw;
+    border-radius: 10px;
+    transition-duration: 0.3s;
+    font-size: 1em;
+    margin-bottom: 3vh;
+}
+
+button:hover {
+    background-color: #c3c3c3;
+}
+
+#start-button {
+    margin-bottom: 10vh;
+}
+
+#game-div {
+    text-align: center;
+}
+
+#check-wins-input {
+    margin: 0 1vh 0 0;
+}
+
+#check-wins-div {
+    text-align: center;
+}
+
+#wins-div {
+    font-size: 3vh;
+}
+
+.deck-div {
+    text-align: center;
+    margin: auto;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    padding: 1vh;
+
+}
+
+.play-div {
+    text-align: center;
+    width: 10vh;
+    height: 20vh;
+    margin: auto;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    border: 0.5vh solid #C3C3C3;
+    border-radius: 10px;
+    padding: 1vh;
+}
+
+#status-div {
+    font-size: 4vh;
+    margin: 1vh;
+}
+
+p {
+    font-size: 3vh;
+}

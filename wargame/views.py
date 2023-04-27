@@ -12,8 +12,8 @@ from django.core.exceptions import MultipleObjectsReturned, ObjectDoesNotExist
 from django.db import transaction
 from wargame.game import *
 
-@transaction.atomic
 def play_game(request, p1name, p2name):
+    print("STARTING HERE")
     if not request.user.is_authenticated:
         return _my_json_error_response("You must be logged in to do this operation", status=401)
     if request.method != 'POST':
@@ -28,7 +28,9 @@ def play_game(request, p1name, p2name):
     game = Game()
     moves = game.play(False)
     lastMove = moves[-1]
-    lastStatus = lastMove["Status"]
+    if not moves or not lastMove:
+        return _my_json_error_response("Game Broke.", status=500)
+    lastStatus = lastMove["status"]
     if lastStatus == "Player 1 won!":
         player1.wins += 1
         player1.save()
@@ -37,8 +39,8 @@ def play_game(request, p1name, p2name):
         player2.save()
     else:
         print("FREAKING ERROR")
-    print(moves)
     response_json = json.dumps({"moves": moves})
+    # print(response_json)
     return HttpResponse(response_json, content_type='application/json')
 
 

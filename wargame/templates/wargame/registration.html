@@ -4,9 +4,6 @@
     <div id="header-div">
         Register
     </div>
-    <div id="link-div">
-        <a href="{% url 'login' %}">Have an account? Login</a>
-    </div>
     <form method="post" action="{% url 'register' %}">
         <table class="form-table">
             {% for field in form.visible_fields %}
@@ -19,11 +16,16 @@
             {% endfor %}
         </table>
         {% csrf_token %}
-        <button id="id_register_button" type="submit">Register</button>
+        <div class="submit-button-div">
+            <button type="submit" class="submit-button">Register</button>
+        </div>
     </form>
     {% for error in form.non_field_errors %}
         <p class="nonfield-errorlist">
             {{error}}
         </p>
     {% endfor %}
+    <div id="login-link-div">
+        <a href="{% url 'login' %}">Have an account? Login</a>
+    </div>
 {% endblock %}

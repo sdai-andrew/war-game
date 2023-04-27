@@ -30,7 +30,7 @@ class Game():
     
     def serializeMove(self, status, p1Card, p2Card, p1FaceUp, p2FaceUp):
         result = {}
-        result["Status"] = status
+        result["status"] = status
         result["p1NumCards"] = len(self.player1.deck)
         result["p2NumCards"] = len(self.player2.deck)
         oneCard = {}
@@ -38,8 +38,8 @@ class Game():
             oneCard["isFaceUp"] = "None"
         elif p1FaceUp:
             oneCard["isFaceUp"] = "True"
-            oneCard["Suit"] = p1Card.suit
-            oneCard["Value"] = p1Card.value
+            oneCard["suit"] = p1Card.suit
+            oneCard["value"] = p1Card.value
         else: 
             oneCard["isFaceUp"] = "False"
         result["p1Card"] = oneCard
@@ -48,8 +48,8 @@ class Game():
             twoCard["isFaceUp"] = "None"
         elif p2FaceUp:
             twoCard["isFaceUp"] = "True"
-            twoCard["Suit"] = p2Card.suit
-            twoCard["Value"] = p2Card.value
+            twoCard["suit"] = p2Card.suit
+            twoCard["value"] = p2Card.value
         else: 
             twoCard["isFaceUp"] = "False"
         result["p2Card"] = twoCard
@@ -67,6 +67,7 @@ class Game():
             player1Card = self.player1.deck.popleft()
             player2Card = self.player2.deck.popleft()
             war.extend([player1Card, player2Card])
+            random.shuffle(war)
             if player1Card.value > player2Card.value:
                 self.player1.deck.extend(war)
                 self.serializeMove("Player 1 victory", player1Card, player2Card, True, True)
@@ -86,25 +87,30 @@ class Game():
                         self.player2.deck = deque(deck[p1InitialCount + 1:])
                         return self.play(True)
                     # add face down cards
-                    self.serializeMove("Tie, time for war!", None, None,
-                                       None if len(self.player1.deck) == 0 else False,
-                                       None if len(self.player2.deck) == 0 else False)
                     if self.player1.deck:
                         war.append(self.player1.deck.popleft())
                     if self.player2.deck:
                         war.append(self.player2.deck.popleft())
+                    
+                    self.serializeMove("Tie, time for war!", None, None,
+                                       None if len(self.player1.deck) == 0 else False,
+                                       None if len(self.player2.deck) == 0 else False)
                     # add face up cards
                     if self.player1.deck:
                         player1Card = self.player1.deck.popleft()
+                        war.append(player1Card)
                     if self.player2.deck:
                         player2Card = self.player2.deck.popleft()
-                    war.extend([player1Card, player2Card])
+                        war.append(player2Card)
+                    
                     status = ""
                     if player1Card.value > player2Card.value:
+                        random.shuffle(war)
                         self.player1.deck.extend(war)
                         status = "Player 1 victory"
                         isWar = False
                     elif player2Card.value > player1Card.value:
+                        random.shuffle(war)
                         self.player2.deck.extend(war)
                         status = "Player 2 victory"
                         isWar = False

@@ -1,21 +1,16 @@
 {% extends "wargame/base.html" %}
 {% block body %}
-    <div id="header-div">
+    <div id="logout-link-div">
+        <a href="{% url 'home' %}">Exit</a>
+    </div>     
     </div>
     <div id="game-div">
         <p>Player 2</p>
-        <div class="deck-div">
-            <div id="player-2-deck-div"></div>
-        </div>
-        <div class="play-div">
-            <div id="player-2-play-div"></div>
-        </div>
-        <div class="play-div">
-            <div id="player-1-play-div"></div>
-        </div>
-        <div class="deck-div">
-            <div id="player-1-deck-div"></div>
-        </div>
+        <div id="player-2-deck-div" class="deck-div"></div>
+        <div id="player-2-play-div" class="play-div"></div>
+        <div id="status-div"></div>
+        <div id="player-1-play-div" class="play-div"></div>
+        <div id="player-1-deck-div" class="deck-div"></div>
         <p>Player 1</p>
     </div>
     <script>
