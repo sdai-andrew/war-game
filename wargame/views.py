@@ -60,7 +60,7 @@ def get_wins_json(request, name):
     if not request.user.is_authenticated:
         return _my_json_error_response("You must be logged in to do this operation", status=401)
     response_data = {
-        "exists": "true",
+        "player_exists": "true",
     }
     try:
         playerUser = User.objects.get(username=name)
@@ -71,11 +71,12 @@ def get_wins_json(request, name):
         playerUser = User.objects.filter(username=name).first()
         player = playerUser.player
     except ObjectDoesNotExist:
-        response_data["exists"] = "false"
+        response_data["player_exists"] = "false"
     response_data["player_name"] = name
-    if response_data["exists"] == "true":
+    if response_data["player_exists"] == "true":
         response_data["wins"] = player.wins
     response_json = json.dumps(response_data)
+    print(response_json)
     return HttpResponse(response_json, content_type='application/json')
 
 def _my_json_error_response(message, status=200):
