@@ -3,8 +3,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 
 class StartGameForm(forms.Form):
-    player1Name = forms.CharField(max_length=25, widget=forms.TextInput(attrs={'placeholder': 'Player 1 Name'}))
-    player2Name = forms.CharField(max_length=25, widget=forms.TextInput(attrs={'placeholder': 'Player 2 Name'}))
+    opponentName = forms.CharField(max_length=25, widget=forms.TextInput(attrs={'placeholder': 'Opponent Username'}))
 
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=20, widget=forms.TextInput(attrs={'placeholder': 'Username'}))

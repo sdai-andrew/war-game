@@ -5,7 +5,7 @@
         Register
     </div>
     <form method="post" action="{% url 'register' %}">
-        <table class="table_form">
+        <table class="form-table">
             {% for field in form.visible_fields %}
                 <tr>
                     <td>{{field}}</td>
