@@ -9,7 +9,7 @@ With the local branch, you can test the service locally. This will require use o
 from django.core.management.utils import get_random_secret_key
 print(get_random_secret_key())
 ```
-Copy the secret key and paste it into the *"Your secret here!"*, and ensure you have double quotations around the secret key.
+Copy the secret key and paste it into the *"Your secret here!"* in *config.ini*, and ensure you have double quotations around the secret key.
 You can now run the server locally.
 
 # Features
