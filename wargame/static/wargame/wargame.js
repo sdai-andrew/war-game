@@ -120,7 +120,7 @@ function displayGame(moves) {
         statusDiv.innerHTML = status;
         if (move.p1NumCards >= 1) {
             p1DeckDiv.innerHTML = `${move.p1NumCards} cards left`;
-        } else if (move.p1numcards == 0) {
+        } else if (move.p1NumCards == 0) {
             p1DeckDiv.innerHTML = `Out of cards!`;
         }
         if (move.p2NumCards >= 1) {

@@ -38,6 +38,7 @@ def play_game(request, p1name, p2name):
         player2.save()
     else:
         print("FREAKING ERROR")
+    print(moves)
     response_json = json.dumps({"moves": moves})
     return HttpResponse(response_json, content_type='application/json')
 
