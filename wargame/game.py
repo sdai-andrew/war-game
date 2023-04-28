@@ -5,6 +5,12 @@ JACK = 11
 QUEEN = 12
 KING = 13
 ACE = 14
+faceCards = {
+    11: "Jack",
+    12: "Queen",
+    13: "King",
+    14: "Ace",
+}
 HEARTS = "Hearts"
 DIAMONDS = "Diamonds"
 SPADES = "Spades"
@@ -39,7 +45,7 @@ class Game():
         elif p1FaceUp:
             oneCard["isFaceUp"] = "True"
             oneCard["suit"] = p1Card.suit
-            oneCard["value"] = p1Card.value
+            oneCard["value"] = p1Card.value if p1Card.value not in faceCards else faceCards[p1Card.value]
         else: 
             oneCard["isFaceUp"] = "False"
         result["p1Card"] = oneCard
@@ -49,7 +55,7 @@ class Game():
         elif p2FaceUp:
             twoCard["isFaceUp"] = "True"
             twoCard["suit"] = p2Card.suit
-            twoCard["value"] = p2Card.value
+            twoCard["value"] = p2Card.value if p2Card.value not in faceCards else faceCards[p2Card.value]
         else: 
             twoCard["isFaceUp"] = "False"
         result["p2Card"] = twoCard

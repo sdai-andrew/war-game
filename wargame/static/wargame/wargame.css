@@ -21,6 +21,7 @@ body {
 a {
     color: #083e70;
     font-size: 3vh;
+    padding: 1vh;
 }
 
 .form-table {
@@ -32,8 +33,8 @@ input {
     margin: 0 0 3px 0;
     border: 0.5vh solid #C3C3C3;
     border-radius: 10px;
-    width: 20vh;
-    font-size: large;
+    width: 25vh;
+    font-size: 2.5vh;
     background-color: #fff7f7;
     font-family: sans-serif;
 }
@@ -56,7 +57,7 @@ button {
     width: 10vw;
     border-radius: 10px;
     transition-duration: 0.3s;
-    font-size: 1em;
+    font-size: 2.5vh;
     margin-bottom: 3vh;
 }
 
@@ -90,19 +91,20 @@ button:hover {
     margin-top: 1vh;
     margin-bottom: 1vh;
     padding: 1vh;
-
+    font-size: 2.5vh;
 }
 
 .play-div {
     text-align: center;
+    vertical-align: middle;
     width: 10vh;
-    height: 20vh;
     margin: auto;
     margin-top: 1vh;
     margin-bottom: 1vh;
     border: 0.5vh solid #C3C3C3;
     border-radius: 10px;
-    padding: 1vh;
+    padding: 10vh 5vh 10vh 5vh;
+    font-size: 2.5vh;
 }
 
 #status-div {
@@ -111,5 +113,6 @@ button:hover {
 }
 
 p {
-    font-size: 3vh;
+    font-size: 3.5vh;
+    margin: 1vh;
 }

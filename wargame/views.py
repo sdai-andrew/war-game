@@ -13,7 +13,6 @@ from django.db import transaction
 from wargame.game import *
 
 def play_game(request, p1name, p2name):
-    print("STARTING HERE")
     if not request.user.is_authenticated:
         return _my_json_error_response("You must be logged in to do this operation", status=401)
     if request.method != 'POST':
@@ -40,7 +39,6 @@ def play_game(request, p1name, p2name):
     else:
         print("FREAKING ERROR")
     response_json = json.dumps({"moves": moves})
-    # print(response_json)
     return HttpResponse(response_json, content_type='application/json')
 
 
