@@ -111,7 +111,13 @@ function displayGame(moves) {
         let p2PlayDiv = document.getElementById("player-2-play-div");
         let p1DeckDiv = document.getElementById("player-1-deck-div");
         let p1PlayDiv = document.getElementById("player-1-play-div");
-        statusDiv.innerHTML = move.status;
+        let status = move.status;
+        if (status === "Player 1 victory") {
+            status = p1Name + "'s victory";
+        } else if (status === "Player 2 victory") {
+            status = p2Name + "'s victory";
+        }
+        statusDiv.innerHTML = status;
         if (move.p1NumCards >= 1) {
             p1DeckDiv.innerHTML = `${move.p1NumCards} cards left`;
         } else if (move.p1numcards == 0) {
