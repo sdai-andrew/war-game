@@ -4,7 +4,7 @@ These are the specifications of War that were implemented:
 - Each player starts with half a shuffled deck of 52 playing cards
 - Ace is the high card and two is the low card
 - Upon ties/war, each player places a face down card and then a face up card to determine the winner
-- If a tir occurs and a player is out of cards, their last played card is the card used to determine the winner
+- If a tie occurs and a player is out of cards, their last played card is the card used to determine the winner
 - Ties/war can stack
 - In the unlikely scenario that ties/wars occur continously to the point both players are out of cards, all cards are reshuffled and redistributed based on the number of cards each player had before the first tir/war occurred
 - The winning cards of each hand are added to the winner's deck randomly to prevent infinite games
