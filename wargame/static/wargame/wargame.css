@@ -1,5 +1,6 @@
 body {
     background-color: #04724d;
+    color: white;
 }
 
 #header-div {
@@ -50,7 +51,7 @@ input:focus {
 }
 
 button {
-    background-color: #19c067;
+    background-color: #15c869;
     border: 0.5vh solid #C3C3C3;
     color: black;
     padding: 2vh;
