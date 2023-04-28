@@ -28,7 +28,7 @@ SECRET_KEY = CONFIG.get("Django", "Secret")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['3.136.19.125']
+ALLOWED_HOSTS = []
 
 LOGIN_URL = '/login'
 LOGIN_REDIRECT_URL = '/'
