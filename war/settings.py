@@ -26,7 +26,7 @@ CONFIG.read(BASE_DIR / "config.ini")
 SECRET_KEY = CONFIG.get("Django", "Secret")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['3.136.19.125']
 
@@ -81,8 +81,11 @@ WSGI_APPLICATION = 'war.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'OPTIONS': {'charset': 'utf8mb4'},
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'django',
+        'USER': '',
+        'PASSWORD': '',
     }
 }
 
