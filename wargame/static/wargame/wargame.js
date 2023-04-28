@@ -134,19 +134,23 @@ function displayGame(moves) {
             p1PlayDiv.innerHTML = `${oneCard.value} of ${oneCard.suit}`;
             p1PlayDiv.style.backgroundColor = "White";
             p1PlayDiv.style.color = "Black";
+            p1PlayDiv.style.border = "0.5vh solid #C3C3C3";
         } else if (oneCard.isFaceUp === "False") {
             p1PlayDiv.innerHTML = `Face down`;
             p1PlayDiv.style.backgroundColor = "Gray";
             p1PlayDiv.style.color = "White";
+            p1PlayDiv.style.border = "0.5vh solid #C3C3C3";
         }
         if (twoCard.isFaceUp === "True") {
             p2PlayDiv.innerHTML = `${twoCard.value} of ${twoCard.suit}`;
             p2PlayDiv.style.backgroundColor = "White";
             p2PlayDiv.style.color = "Black";
+            p2PlayDiv.style.border = "0.5vh solid #C3C3C3";
         } else if (oneCard.isFaceUp === "False") {
             p2PlayDiv.innerHTML = `Face down`;
             p2PlayDiv.style.backgroundColor = "Gray";
             p2PlayDiv.style.color = "White";
+            p2PlayDiv.style.border = "0.5vh solid #C3C3C3";
         }
         index += 1;
     }
