@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from django.shortcuts import render, redirect
 from wargame.models import Player
-from django.core.exceptions import MultipleObjectsReturned, ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction
 from wargame.game import *
 
@@ -38,7 +38,7 @@ def play_game(request, p1name, p2name):
         player2.save()
     else:
         print("FREAKING ERROR")
-    print(moves)
+        return _my_json_error_response("Game Broke.", status=500)
     response_json = json.dumps({"moves": moves})
     return HttpResponse(response_json, content_type='application/json')
 
@@ -56,6 +56,7 @@ def home_action(request):
 
 @login_required
 def go_game(request):
+    context = {}
     if request.method != "POST":
         return redirect(reverse('home'))
     try:
@@ -73,12 +74,13 @@ def go_game(request):
         oppUser = User.objects.get(username=opponentName)
         opponent = oppUser.player
     except ObjectDoesNotExist:
-        context= {}
         form.add_error('opponentName', 'User with that name does not exist')
         context["form"] = form
         return render(request, 'wargame/home.html', context)
-    
-    context = {}
+    if oppUser.username == request.user.username:
+        form.add_error('opponentName', "Can't war against yourself!")
+        context["form"] = form
+        return render(request, 'wargame/home.html', context)
     context["player1"] = request.user.username
     context["player2"] = opponent.user.username
     return render(request, 'wargame/game.html', context)
